@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <title>SupplierIT</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
+
+    <style>
+       body {
+           background-image: url('images/contact-bg.jpg'); /* Background image */
+           background-size: cover; /* Make the background cover the entire screen */
+           background-repeat: no-repeat; /* Prevent the background from repeating */
+           background-position: center; /* Center the background image */
+
+ 
+           overflow-y: hidden;
+           overflow-x: hidden;
+           
+       }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+            
+        
+        }
+
+        /* Styles for button */
+        .redirect-button {
+            padding: 20px 40px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 24px; /* Larger font size */
+        }
+
+        .redirect-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Larger font size for the "Thanks for Ordering!" text */
+        .thanks-text {
+            font-size: 32px; /* Larger font size */
+            margin-bottom: 20px; /* Add some space below */
+            color: white;
+        }
+
+        /* Larger font size for the processing message */
+        .processing-message {
+            font-size: 28px; /* Larger font size */
+            margin-bottom: 20px; /* Add some space below */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <p class="thanks-text"><strong>Thanks for Ordering! We'll contact you via your Gmail address.</strong></p>
+            <p class="processing-message">We are currently processing your order and will notify you once it's ready for delivery.</p>
+        </div>
+        <a href="index.html" class="redirect-button">Return to Home</a>
+    </div>
+</body>
+</html>
