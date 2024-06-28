@@ -708,26 +708,36 @@ paypal.Buttons({
   
     window.onload = updateCart;
   
-    paypal.Buttons({
-      createOrder: function (data, actions) {
+   paypal.Buttons({
+    createOrder: function(data, actions) {
+        // Retrieve cart items and total from local storage
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const total = parseFloat(localStorage.getItem('discountedTotal') || '0.00');
+        
+        console.log('Cart Items:', cartItems);
+        console.log('Total:', total);
+
+        // Temporary simplified order creation for testing
         return actions.order.create({
-          purchase_units: [{
-            amount: {
-              value: total.toFixed(2),
-              currency_code: 'SEK',
-            },
-          }],
+            purchase_units: [{
+                amount: {
+                    value: '1.00',  // Hardcoded value for testing
+                    currency_code: 'USD'
+                }
+            }]
         });
-      },
-      onApprove: function (data, actions) {
-        return actions.order.capture().then(function (details) {
-          alert('Transaction completed by ' + details.payer.name.given_name);
-          cartItems.length = 0;
-          updateCart();
+    },
+    onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+            alert('Transaction completed by ' + details.payer.name.given_name);
+            // Clear cart items after successful transaction
+            localStorage.setItem('cartItems', JSON.stringify([]));
+            updateCart();
+            window.location.href = 'Infos.html';
         });
-      }
-    });
-  
+    }
+}).render('#paypal-button-container');
+
     function updateDeliveryAndTotalInLocalStorage() {
       const deliveryCost = document.querySelector('.delivery-text').textContent;
       const cartTotal = document.getElementById('cart-total').textContent;
