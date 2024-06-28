@@ -709,16 +709,16 @@ paypal.Buttons({
     window.onload = updateCart;
   
     paypal.Buttons({
-    createOrder: function(data, actions) {
-    return actions.order.create({
-        purchase_units: [{
+      createOrder: function (data, actions) {
+        return actions.order.create({
+          purchase_units: [{
             amount: {
-                value: '1.00'  // Hardcoded value for testing
-            }
-        }]
-    });
-}
-
+              value: total.toFixed(2),
+              currency_code: 'SEK',
+            },
+          }],
+        });
+      },
       onApprove: function (data, actions) {
         return actions.order.capture().then(function (details) {
           alert('Transaction completed by ' + details.payer.name.given_name);
