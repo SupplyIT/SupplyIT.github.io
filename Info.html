@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+  <title>SupplyIT</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
+  <link href="css/style1.css" rel="stylesheet" />
+  <link href="css/responsive.css" rel="stylesheet" />
+  <style>
+/* Add CSS for the white overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0);
+  z-index: 999999999999999999999999999999999999999999;
+  display: none;
+  overflow-y: hidden; /* Enable vertical scrolling */
+  background: url('images/Storage.jpg') center/cover no-repeat; /* Updated background image path */
+
+}
+
+.overlay-content {
+  width: 80%; /* Adjust the width as needed */
+  max-width: 600px; /* Adjust the max-width as needed */
+  margin: 20px auto; /* Center the overlay content */
+  background-color: rgba(255, 255, 255, 0); /* Add a semi-transparent white background */
+  padding: 20px;
+}
+
+
+  </style>
+</head>
+
+<body class="sub_page">
+  <div class="hero_area">
+    <div class="hero_bg_box">
+      <div class="img-box">
+        <img src="images/hero-bg.jpg" alt="">
+      </div>
+    </div>
+
+    <header class="header_section">
+      <div class="header_top">
+        <div class="container-fluid">
+          <div class="contact_link-container">
+            <a href="" class="contact_link1">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>
+                Malmö
+              </span>
+            </a>
+            <a href="" class="contact_link3">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                Quantumsprints@gmail.com
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="header_bottom">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" href="">
+              <span>
+                Quprint
+              </span>
+            </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+  </div>
+  <section class="contact_section layout_padding">
+    <div class="contact_bg_box">
+        <div class="img-box">
+            <img src="images/contact-bg.jpg" alt="">
+        </div>
+    </div>
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2>
+                Order now!
+            </h2>
+            <h3>
+              Well reply on you gmail
+            </h3>
+        </div>
+        <div class="container">
+           <div class="container">
+        <div class="row">
+          <div class="col-md-7 mx-auto">
+            <form id="submitForm">
+              <div class="contact_form-container">
+                <div>
+                  <input type="text" placeholder="Full Name" name="Name" id="name" required />
+                </div>
+                <div>
+                  <input type="text" placeholder="Street Address" name="street" id="street" required />
+                </div>
+                <div>
+                  <input type="number" placeholder="Postal Code" name="Link" id="Code" required />
+                </div>
+                <div>
+                  <input type="text" placeholder="City" name="City" id="city" required />
+                </div>
+                <div>
+                  <input type="gmail" placeholder="Gmail" name="gmail" id="gmail" required />
+                </div>
+                <div>
+                  <input type="number" placeholder="PhoneNumber" name="Pn" id="Pn" required />
+                </div>
+                <br>
+                <div id="paypal-button-container"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+        </div>
+    </div>
+</section>
+ <!-- Your existing HTML content -->
+<div class="overlay" id="overlay">
+  <div class="overlay-content">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quprint</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.png">
+  <!-- Include your stylesheets, scripts, and other head elements here -->
+
+    <style>
+    /* Reset default margin and padding */
+    body, h1, h2, h3, p, ul, li {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Remove default body margin */
+    body {
+      margin: 0;
+    }
+
+    /* Add a container around infos-container */
+    .infos-container-wrapper {
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 100vh; /* Make the background cover the full screen height */
+    }
+
+    /* Apply a background image to the pseudo-element */
+    .infos-container-wrapper::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('images/hero-bg.jpg') center/cover no-repeat; /* Updated background image path */
+      filter: blur(5px); /* Apply a slight blur */
+      z-index: -1; /* Send the pseudo-element to the back */
+    }
+
+    /* Add styling to infos-container */
+    #infos-container {
+      text-align: center;
+      padding: 20px;
+      border: 2px solid black; /* Updated border color to black */
+      border-radius: 10px;
+      width: 80%;
+      max-width: 600px; /* Adjust the max-width as needed */
+      margin: 0 auto;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1; /* Bring the content to the front */
+      background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent white background */
+      overflow-y: auto; /* Enable vertical scrollbar when content overflows */
+      max-height: 60vh; /* Added fixed height */
+    }
+  </style>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+</head>
+
+<body>
+
+  <!-- Wrap infos-container in the new container -->
+  <div class="infos-container-wrapper">
+    <div id="infos-container">
+      <!-- Your content goes here -->
+    </div>
+  </div>
+</body>
+<!-- Your existing HTML content -->
+
+<script>
+  emailjs.init("Kr1Jkm3Mtfa8tJk3T");
+
+  function displayItemDetails() {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const infosContainer = document.getElementById('infos-container');
+    infosContainer.innerHTML = ''; // Clear previous content
+
+    // Counter for numbering itemDetails
+    let itemCounter = 1;
+
+    cartItems.forEach((item, index) => {
+      const itemDetails = document.createElement('div');
+      itemDetails.innerHTML = `
+            <br>
+            <p>ID: ${item.id}</p>
+            <p>Item: ${item.name}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Price: ${item.price.toFixed(2)} Kr</p>
+            <hr>
+        `;
+      infosContainer.appendChild(itemDetails);
+
+      itemCounter++; // Increment the counter
+    });
+
+    // Get and display form data
+    const formData = JSON.parse(localStorage.getItem('formData')) || {};
+    const formDetails = document.createElement('div');
+    formDetails.innerHTML = `
+          <p>FullName: ${formData.fullName}</p>
+          <p>Gmail: ${formData.gmail}</p>
+          <p>PhoneNumber: ${formData.phoneNumber}</p>
+          <p>Street Address: ${formData.streetAddress}</p>
+          <p>Postal Code: ${formData.postalCode}</p>
+          <p>City: ${formData.city}</p>
+      `;
+    infosContainer.appendChild(formDetails);
+
+    // Get and display selected country
+    const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+    const countryDetails = document.createElement('p');
+    countryDetails.textContent = `Country: ${selectedCountry}`;
+    infosContainer.appendChild(countryDetails);
+
+    // Add horizontal rule between form data and delivery details
+    const hrElementForm = document.createElement('hr');
+    infosContainer.appendChild(hrElementForm);
+
+    // Get and display delivery cost and total
+    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
+    if (ewebCouponApplied) {
+      const couponDetails = document.createElement('p');
+      couponDetails.textContent = `Coupon: ${ewebCouponApplied}`;
+      infosContainer.appendChild(couponDetails);
+    }
+
+    const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
+    const discountedTotal = localStorage.getItem('discountedTotal') || '0.00 kr';
+
+    const deliveryDetails = document.createElement('p');
+    deliveryDetails.textContent = `Delivery Cost: ${deliveryCost}`;
+    infosContainer.appendChild(deliveryDetails);
+
+    const totalDetails = document.createElement('p');
+    totalDetails.textContent = `Cart Total: ${discountedTotal}`;
+    infosContainer.appendChild(totalDetails);
+
+    // Add larger horizontal rule above Order Number
+    const hrElementOrder = document.createElement('hr');
+    hrElementOrder.style.height = '4px';
+    infosContainer.appendChild(hrElementOrder);
+
+    // Generate and display Order Number with adjusted font size
+    const orderNumber = generateOrderNumber(); // Generate the order number
+    const orderNumberDetails = document.createElement('div');
+    orderNumberDetails.innerHTML = `<p style="font-size: 18px;">Order Number: ${orderNumber}</p>`;
+    infosContainer.appendChild(orderNumberDetails);
+  }
+
+  // Function to generate a random 10-digit order number
+  function generateOrderNumber() {
+    return Math.floor(Math.random() * 9000000000) + 1000000000;
+  }
+
+  // Function to get other data needed for EmailJS template
+  function getEmailVariables() {
+    const formData = JSON.parse(localStorage.getItem('formData')) || {};
+    const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+    const deliveryCost = localStorage.getItem('deliveryCost') || '0.00 kr';
+    const discountedTotal = localStorage.getItem('discountedTotal') || '0.00 kr';
+
+    return {
+      Name: formData.fullName,
+      Gmail: formData.gmail,
+      PhoneNr: formData.phoneNumber,
+      Adress: formData.streetAddress,
+      Postal: formData.postalCode,
+      City: formData.city,
+      Country: selectedCountry,
+      Delivery: deliveryCost,
+      Price: discountedTotal
+    };
+  }
+
+  // Function to get variables for each cart item
+  function getCartItemsVariables(cartItems) {
+    const cartItemsVariables = {};
+    cartItems.forEach((item, index) => {
+      const itemCounter = index + 1;
+      cartItemsVariables[`Id${itemCounter}`] = item.id;
+      cartItemsVariables[`Item${itemCounter}`] = item.name;
+      cartItemsVariables[`Quantity${itemCounter}`] = item.quantity;
+      cartItemsVariables[`Price${itemCounter}`] = item.price.toFixed(2);
+    });
+    return cartItemsVariables;
+  }
+
+  // Function to send email using EmailJS
+  function sendEmail(emailVariables) {
+    emailjs.send("service_vza1phw", "template_r04a2yz", emailVariables)
+      .then(function(response) {
+        console.log('Email sent successfully:', response);
+      }, function(error) {
+        console.error('Email sending failed:', error);
+      });
+  }
+
+  // Call this function when the Infos.html page loads
+  window.onload = function() {
+    displayItemDetails();
+
+    // Add an event listener to the form for submission
+    document.getElementById('submitForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      // Retrieve form data
+      const fullName = document.getElementById('name').value;
+      const streetAddress = document.getElementById('street').value;
+      const postalCode = document.getElementById('Code').value;
+      const city = document.getElementById('city').value;
+      const gmail = document.getElementById('gmail').value;
+      const phoneNumber = document.getElementById('Pn').value;
+
+      // Store form data in localStorage for Infos.html to access
+      localStorage.setItem('formData', JSON.stringify({
+        fullName,
+        streetAddress,
+        postalCode,
+        city,
+        gmail,
+        phoneNumber
+      }));
+      // Show the overlay
+      document.getElementById('overlay').style.display = 'block';
+      // Optionally, you can hide the form after submission
+      document.getElementById('submitForm').style.display = 'none';
+
+      // Prepare and send email using EmailJS
+      const emailVariables = {
+        ...getEmailVariables(),
+        ...getCartItemsVariables(JSON.parse(localStorage.getItem('cartItems')) || []),
+        OrderNumber: generateOrderNumber(), // Generate the order number
+        ordn: orderNumber // Submit OrderNumber to {{ordn}} in the template
+      };
+      sendEmail(emailVariables);
+    });
+  };
+</script>
+
+    </div>
+  </div>
+
+<footer class="container-fluid footer_section">
+  <p>
+    &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
+  </p>
+</footer>
+<footer class="container-fluid footer_section">
+</footer>
+
+<script src="https://www.paypal.com/sdk/js?client-id=AVzq-kHFWYoJnEp-Vbc4RC2NoszSwN6OPsujQloQJ8Ki1JbEgIhKjGFWN9tmbDkJkPv-oTnqJn9zIGMA&currency=SEK"></script>
+<script>
+ const discountedTotal = localStorage.getItem('discountedTotal') || '0.00';
+
+    // Render PayPal button
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: discountedTotal
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show overlay upon successful payment
+                window.location.href = "Infos.html";
+
+            });
+        }
+    }).render('#paypal-button-container');
+  
+     function submitForm(event) {
+      event.preventDefault();
+
+      // Retrieve form data
+      const fullName = document.getElementById('name').value;
+      const streetAddress = document.getElementById('street').value;
+      const postalCode = document.getElementById('Code').value;
+      const city = document.getElementById('city').value;
+      const gmail = document.getElementById('gmail').value;
+      const phoneNumber = document.getElementById('Pn').value;
+
+      // Store form data in localStorage for Infos.html to access
+      localStorage.setItem('formData', JSON.stringify({
+        fullName,
+        streetAddress,
+        postalCode,
+        city,
+        gmail,
+        phoneNumber
+        
+      }));
+      // Show the overlay
+      document.getElementById('overlay').style.display = 'block';
+      // Optionally, you can hide the form after submission
+      document.getElementById('submitForm').style.display = 'none';
+
+      // Update overlay content
+      displayItemDetails();
+    }
+
+  // Add an event listener to the form for submission
+  document.getElementById('submitForm').addEventListener('submit', submitForm);
+</script>
+<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
