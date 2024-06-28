@@ -274,9 +274,9 @@
         const cartItemElement = document.createElement('div');
         cartItemElement.className = 'cart-item';
         cartItemElement.innerHTML = `
-          <span>${item.name}</span>
-          <span>$${item.price.toFixed(2)}</span>
-          <button class="delete-button" onclick="removeFromCart('${item.name}')">Remove</button>
+          <span>Kr{item.name}</span>
+          <span>Kr{item.price.toFixed(2)}</span>
+          <button class="delete-button" onclick="removeFromCart('Kr{item.name}')">Remove</button>
         `;
         cartItemsContainer.appendChild(cartItemElement);
         total += item.price;
