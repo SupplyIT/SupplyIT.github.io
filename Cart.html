@@ -481,10 +481,14 @@ paypal.Buttons({
                     currency_code: 'USD',
                     value: item.price.toFixed(2)
                 },
-                quantity: '1'
+                quantity: item.quantity.toString()  // Adjusted to use actual quantity
             };
         });
-        
+
+        console.log('Cart Items:', cartItems);
+        console.log('Total:', total);
+        console.log('PayPal Items:', items);
+
         // Pass cart items and total to create order
         return actions.order.create({
             purchase_units: [{
@@ -509,10 +513,10 @@ paypal.Buttons({
             localStorage.setItem('cartItems', JSON.stringify([]));
             updateCart();
             window.location.href = 'Infos.html';
-
         });
     }
 }).render('#paypal-button-container');
+
 
 
 
