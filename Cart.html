@@ -467,280 +467,114 @@ body{
 <br><br<br><br>
   <script src="https://www.paypal.com/sdk/js?client-id=AQFnKaEWgyLpT_XkfeylKrodosha_MdEOG8iXycWwkIwJ7pQl8M_AH681t-bzbgyBbC1TviFYtbUdpbM"></script>
 
-  <script>
-paypal.Buttons({
-    createOrder: function(data, actions) {
-        // Retrieve cart items and total from local storage
-        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        const total = parseFloat(localStorage.getItem('discountedTotal') || '0.00');
-        
-        // Map cart items to PayPal items format
-        const items = cartItems.map(item => {
-            return {
-                name: item.name,
-                unit_amount: {
-                    currency_code: 'USD',
-                    value: item.price.toFixed(2)
-                },
-                quantity: '1'
-            };
-        });
-        
-        // Pass cart items and total to create order
-        return actions.order.create({
-            purchase_units: [{
-                amount: {
-                    value: total.toFixed(2),
-                    currency_code: 'USD',
-                    breakdown: {
-                        item_total: {
-                            currency_code: 'USD',
-                            value: total.toFixed(2)
-                        }
-                    }
-                },
-                items: items
-            }]
-        });
-    },
-    onApprove: function(data, actions) {
-        return actions.order.capture().then(function(details) {
-            alert('Transaction completed by ' + details.payer.name.given_name);
-            // Clear cart items after successful transaction
-            localStorage.setItem('cartItems', JSON.stringify([]));
-            updateCart();
-            window.location.href = 'Infos.html';
-
-        });
-    }
-}).render('#paypal-button-container');
-
-
-
-    // Function to handle selection of "Other" in country dropdown
-    function selectOtherCountry() {
-      const otherCountryInput = document.getElementById('other-country-input');
-      const otherCountryValue = otherCountryInput.value.trim();
-      if (otherCountryValue !== '') {
-        const countryDropdown = document.getElementById('country-dropdown');
-        const otherOption = document.querySelector('#country-dropdown option[value="Other"]');
-        otherOption.textContent = otherCountryValue;
-        otherOption.value = otherCountryValue;
-        otherCountryInput.value = '';
-        countryDropdown.value = otherCountryValue;
-        hideOtherCountryForm();
-        updateCart(); // Update the cart based on the new country selection
-      } else {
-        alert('Please enter a valid country name.');
-      }
-    }
-  
-    // Function to show the form for entering other country
-    function showOtherCountryForm() {
-      const countryDropdown = document.getElementById('country-dropdown');
-      const otherOption = document.querySelector('#country-dropdown option[value="Other"]');
-      const otherCountryForm = document.createElement('div');
-      otherCountryForm.id = 'other-country-form';
-      otherCountryForm.classList.add('CountryAd');
-      otherCountryForm.innerHTML = `
-        <input type="text" id="other-country-input" class="Dropdown" placeholder="Enter your country">
-        <button onclick="selectOtherCountry()">Select</button>
-      `;
-      countryDropdown.parentNode.insertBefore(otherCountryForm, countryDropdown.nextSibling);
-      countryDropdown.style.display = 'none';
-    }
-  
-    // Function to hide the form for entering other country
-    function hideOtherCountryForm() {
-      const otherCountryForm = document.getElementById('other-country-form');
-      if (otherCountryForm) {
-        otherCountryForm.parentNode.removeChild(otherCountryForm);
-      }
-      const countryDropdown = document.getElementById('country-dropdown');
-      countryDropdown.style.display = 'block';
-    }
-  
-    // Event listener for country dropdown change
-    const countryDropdown = document.getElementById('country-dropdown');
-    countryDropdown.addEventListener('change', function () {
-      const selectedCountry = countryDropdown.value;
-      if (selectedCountry === 'Other') {
-        showOtherCountryForm();
-      } else {
-        hideOtherCountryForm();
-        localStorage.setItem('selectedCountry', selectedCountry);
-        updateCart(); // Update the cart based on the new country selection
-      }
-    });
-  
-    // Your existing JavaScript code
-  
-    function submitTotalToInfosPage(total) {
-      // Save the total to local storage
-      localStorage.setItem('cartTotal', total.toFixed(2));
-    }
-  
-    function calculateDeliveryCost(selectedCountry, itemCount) {
-      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  
-      // Filter out items containing "5st" in their name
-      const specialItems = cartItems.filter(item => item.name.includes('5st'));
-      const itemCountWith5st = specialItems.length;
-  
-      // Filter out items not containing "5st" in their name
-      const nonSpecialItems = cartItems.filter(item => !item.name.includes('5st'));
-      const itemCountWithout5st = nonSpecialItems.length;
-  
-      if (selectedCountry === 'Sweden') {
-        return 0; // Free delivery for Sweden
-      } else {
-        // Calculate delivery cost based on the number of items
-        const deliveryCostWithout5st = itemCountWithout5st <= 5 ? 10 * itemCountWithout5st : 10 * 5 + 20 * (itemCountWithout5st - 5);
-        const deliveryCostWith5st = 20 * itemCountWith5st;
-  
-        return deliveryCostWithout5st + deliveryCostWith5st;
-      }
-    }
-  
-    // Clear coupon code on page load/refresh
-    localStorage.removeItem('ewebCouponApplied');
-  
-    // Load cart items from localStorage
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    // Initialize total variable
-    let total = 0;
-  
-    // Load selected country from localStorage
-    const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
-    countryDropdown.value = selectedCountry;
-  
-    // Event listener for country dropdown change
-    countryDropdown.addEventListener('change', function () {
-      const selectedCountry = countryDropdown.value;
-      localStorage.setItem('selectedCountry', selectedCountry);
-    });
-  
-    function applyCoupon() {
-      const couponCodeInput = document.getElementById('coupon-code');
-      const couponCode = couponCodeInput.value.trim();
-  
-      if (couponCode === 'mohm') {
-        couponPercentage = 10;
-        localStorage.setItem('ewebCouponApplied', '10%, mohm');
-        alert('Coupon applied successfully!');
-      } else {
-        couponPercentage = 0;
-        localStorage.removeItem('ewebCouponApplied');
-        alert('Invalid coupon code.');
-      }
-  
-      updateCart();
-    }
-  
+   <script>
     function updateCart() {
-      const cartItemsDiv = document.getElementById('cart-items');
-      const cartTotal = document.getElementById('cart-total');
-      const deliveryText = document.querySelector('.delivery-text');
-  
-      // Clear existing cart items before updating
-      cartItemsDiv.innerHTML = '';
-  
-      let total = 0;
-  
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-      const itemCount = cartItems.length;
-  
-      cartItems.forEach((item, index) => {
-        const cartItemDiv = document.createElement('div');
-        cartItemDiv.className = 'cart-item';
-        cartItemDiv.innerHTML = `
-            <span>${item.name} - ${item.price.toFixed(2)} $</span>
-            <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
+      const cartItemsContainer = document.getElementById('cart-items');
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+
+      cartItems.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('cart-item');
+        cartItem.innerHTML = `
+          <span>${item.name} - $${item.price.toFixed(2)}</span>
+          <button class="delete-button" onclick="removeFromCart('${item.id}')">Delete</button>
         `;
-        cartItemsDiv.appendChild(cartItemDiv);
+        cartItemsContainer.appendChild(cartItem);
         total += item.price;
       });
-  
-      // Calculate delivery cost
-      const selectedCountry = document.getElementById('country-dropdown').value;
-      const deliveryCost = calculateDeliveryCost(selectedCountry, itemCount);
-  
-      // Apply coupon discount
-      const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 10 : 0;
-      const discount = (total * couponPercentage) / 100;
-      const discountedTotal = total - discount + deliveryCost;
-  
-      cartTotal.textContent = ` ${discountedTotal.toFixed(2)} $`;
-      deliveryText.textContent = `Delivery: ${deliveryCost.toFixed(2)}$`;
-  
-      const orderButton = document.getElementById('order-button');
-      orderButton.style.display = itemCount > 0 ? 'block' : 'none';
-  
-      // Save discounted total to local storage
-      localStorage.setItem('discountedTotal', discountedTotal.toFixed(2));
-  
-      // Update delivery cost and cart total in local storage
-      updateDeliveryAndTotalInLocalStorage();
-  
-      // Check if a coupon is applied
-      if (couponPercentage > 0) {
-        // If a coupon is applied, submit the discounted total to Infos.html
-        submitTotalToInfosPage(discountedTotal);
+
+      document.getElementById('cart-total').textContent = total.toFixed(2);
+      localStorage.setItem('cartTotal', total.toFixed(2));
+    }
+
+    function removeFromCart(id) {
+      let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      cartItems = cartItems.filter(item => item.id !== id);
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      updateCart();
+    }
+
+    function applyCoupon() {
+      const couponCode = document.getElementById('coupon-code').value;
+      let total = parseFloat(localStorage.getItem('cartTotal')) || 0;
+
+      if (couponCode === 'DISCOUNT10') {
+        total *= 0.9;
       }
+
+      document.getElementById('cart-total').textContent = total.toFixed(2);
+      localStorage.setItem('discountedTotal', total.toFixed(2));
     }
-  
-    function deleteItem(index) {
-      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  
-      if (index >= 0 && index < cartItems.length) {
-        cartItems.splice(index, 1);
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        updateCart();
-      } else {
-        alert('Invalid item index.');
-      }
-  
-      localStorage.removeItem('ewebCouponApplied');
-    }
-  
-    function placeOrder() {
-      location.href = 'Info.html';
-    }
-  
-    window.onload = updateCart;
-  
+
     paypal.Buttons({
       createOrder: function (data, actions) {
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const total = parseFloat(localStorage.getItem('discountedTotal') || '0.00');
+        const items = cartItems.map(item => ({
+          name: item.name,
+          unit_amount: {
+            currency_code: 'USD',
+            value: item.price.toFixed(2)
+          },
+          quantity: '1'
+        }));
+
         return actions.order.create({
           purchase_units: [{
             amount: {
               value: total.toFixed(2),
-              currency_code: 'SEK',
+              currency_code: 'USD',
+              breakdown: {
+                item_total: {
+                  currency_code: 'USD',
+                  value: total.toFixed(2)
+                }
+              }
             },
-          }],
+            items: items
+          }]
         });
       },
       onApprove: function (data, actions) {
         return actions.order.capture().then(function (details) {
           alert('Transaction completed by ' + details.payer.name.given_name);
-          cartItems.length = 0;
+          localStorage.removeItem('cartItems');
+          localStorage.removeItem('cartTotal');
+          localStorage.removeItem('discountedTotal');
           updateCart();
         });
       }
+    }).render('#paypal-button-container');
+
+    document.getElementById('country-dropdown').addEventListener('change', function () {
+      const otherCountryInput = document.getElementById('other-country-input');
+      if (this.value === 'Other') {
+        otherCountryInput.style.display = 'block';
+      } else {
+        otherCountryInput.style.display = 'none';
+      }
     });
-  
-    function updateDeliveryAndTotalInLocalStorage() {
-      const deliveryCost = document.querySelector('.delivery-text').textContent;
-      const cartTotal = document.getElementById('cart-total').textContent;
-      localStorage.setItem('deliveryCost', deliveryCost);
-      localStorage.setItem('cartTotal', cartTotal);
+
+    function selectOtherCountry() {
+      const countryDropdown = document.getElementById('country-dropdown');
+      const otherCountryInput = document.getElementById('other-country-input');
+      const selectedCountry = countryDropdown.value;
+
+      if (selectedCountry === 'Other') {
+        const otherCountry = otherCountryInput.value;
+        if (otherCountry) {
+          alert('Selected Country: ' + otherCountry);
+        } else {
+          alert('Please enter a country name.');
+        }
+      } else {
+        alert('Selected Country: ' + selectedCountry);
+      }
     }
-  
-    // Update delivery cost and cart total in local storage when cart is updated
-    updateCart();
-  
-    // Call function to update both delivery cost and cart total in local storage whenever the cart is updated
-    window.addEventListener('DOMContentLoaded', updateDeliveryAndTotalInLocalStorage);
+
+    document.addEventListener('DOMContentLoaded', updateCart);
   </script>
   
   
