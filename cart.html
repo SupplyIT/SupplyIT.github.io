@@ -189,8 +189,8 @@
       <div class="cart-items-wrapper">
         <div id="cart-items"></div>
         <h3>
-          <span class="delivery-text">Delivery: 0.00 kr</span>
-          Total: <span id="cart-total">0.00 kr</span>
+          <span class="delivery-text">Delivery: 0.00$</span>
+          Total: <span id="cart-total">0.00</span>
         </h3>
       </div>
       <div class="coupon-form">
@@ -209,7 +209,7 @@
   </section>
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-  <script src="https://www.paypal.com/sdk/js?client-id=AQFnKaEWgyLpT_XkfeylKrodosha_MdEOG8iXycWwkIwJ7pQl8M_AH681t-bzbgyBbC1TviFYtbUdpbM&currency=SEK"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AQFnKaEWgyLpT_XkfeylKrodosha_MdEOG8iXycWwkIwJ7pQl8M_AH681t-bzbgyBbC1TviFYtbUdpbM"></script>
 
   <script>
     paypal.Buttons({
@@ -223,7 +223,7 @@
           return {
             name: item.name,
             unit_amount: {
-              currency_code: 'SEK',
+              currency_code: 'USD',
               value: item.price.toFixed(2)
             },
             quantity: '1'
@@ -235,10 +235,10 @@
           purchase_units: [{
             amount: {
               value: total.toFixed(2),
-              currency_code: 'SEK',
+              currency_code: 'USD',
               breakdown: {
                 item_total: {
-                  currency_code: 'SEK',
+                  currency_code: 'USD',
                   value: total.toFixed(2)
                 }
               }
@@ -275,14 +275,14 @@
         cartItemElement.className = 'cart-item';
         cartItemElement.innerHTML = `
           <span>${item.name}</span>
-          <span>${item.price.toFixed(2)} kr</span>
+          <span>$${item.price.toFixed(2)}</span>
           <button class="delete-button" onclick="removeFromCart('${item.name}')">Remove</button>
         `;
         cartItemsContainer.appendChild(cartItemElement);
         total += item.price;
       });
 
-      cartTotal.innerText = total.toFixed(2) + ' kr';
+      cartTotal.innerText = total.toFixed(2);
       localStorage.setItem('discountedTotal', total);
     }
 
